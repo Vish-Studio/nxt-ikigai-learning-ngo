@@ -86,14 +86,14 @@ export function Footer() {
         </div>
 
         <div className="pt-12 border-t border-ikigai-bg/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-ikigai-bg/40 text-[10px] uppercase tracking-[0.2em]">
-            &copy; {new Date().getFullYear()}
+          <p className="text-center text-ikigai-bg/40 text-[10px] uppercase tracking-[0.2em] md:text-left">
+            &copy; {new Date().getFullYear()} Ikigai. All rights reserved. | Website by
             <a
               className="text-ikigai-accent hover:text-white transition-all ease-in-out"
               href={(siteData as any).copyright.href}
               target="_blank"
               rel="noopener noreferrer"
-            > {(siteData as any).copyright.name}</a>. All rights reserved.
+            > {(siteData as any).copyright.name}</a>
           </p>
           <div className="flex gap-8 text-[10px] uppercase tracking-[0.2em] text-ikigai-bg/40">
             <a href="#" className="hover:text-ikigai-accent transition-colors focus-visible:text-ikigai-accent focus-visible:outline-none">Privacy Policy</a>

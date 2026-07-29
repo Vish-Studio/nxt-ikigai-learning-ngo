@@ -102,14 +102,14 @@ export default function MobileNav({ onClose }: { onClose: () => void }) {
 
 
             <div className="flex flex-col items-center gap-2">
-              <p className="text-ikigai-dark text-[10px] tracking-[0.2em]">
-                &copy; {new Date().getFullYear()}
+              <p className="text-center text-ikigai-dark text-[10px] tracking-[0.2em]">
+                &copy; {new Date().getFullYear()} Ikigai. All rights reserved. | Website by
                 <a
-                  className="text-ikigai-accent hover:text-white transition-all ease-in-out"
+                  className="text-ikigai-accent hover:text-ikigai-dark transition-all ease-in-out"
                   href={(siteData as any).copyright.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                > {(siteData as any).copyright.name}</a>. All rights reserved.
+                > {(siteData as any).copyright.name}</a>
               </p>
             </div>
           </motion.div>
