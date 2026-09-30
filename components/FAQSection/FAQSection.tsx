@@ -3,12 +3,15 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { faqs } from '@/lib/data';
+import { trackEvent } from '@/lib/analytics';
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+    const opening = openIndex !== index;
+    setOpenIndex(opening ? index : null);
+    if (opening) trackEvent('faq_open', { question: faqs[index].question.slice(0, 100) });
   };
 
   return (

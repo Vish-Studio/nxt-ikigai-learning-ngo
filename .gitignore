@@ -4,3 +4,6 @@ out/
 
 # typescript
 *.tsbuildinfo
+
+# env
+.env*.local

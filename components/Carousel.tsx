@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
+import { trackEvent } from '@/lib/analytics';
 
 interface CarouselProps<T> {
   items: T[];
@@ -81,6 +82,10 @@ export function Carousel<T>({
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
+      trackEvent('carousel_scroll', {
+        section_id: scrollRef.current.closest('section')?.id ?? 'unknown',
+        direction,
+      });
       const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
       const maxScroll = scrollWidth - clientWidth;
 

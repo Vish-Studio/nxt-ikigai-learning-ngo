@@ -6,6 +6,7 @@ import { Button } from '@/components/Button';
 import { Carousel } from '@/components/Carousel';
 import Image from 'next/image';
 import { useBasePath } from '@/lib/useBasePath';
+import { trackEvent } from '@/lib/analytics';
 
 export function ActivitiesSection() {
   const [selectedImage, setSelectedImage] = useState<null | {
@@ -81,7 +82,13 @@ export function ActivitiesSection() {
           items={activities}
           itemsPerPage={{ mobile: 1, tablet: 3, desktop: 4 }}
           renderItem={(activity) => (
-            <div className="group cursor-pointer h-full flex flex-col" onClick={() => setSelectedImage(activity)}>
+            <div
+              className="group cursor-pointer h-full flex flex-col"
+              onClick={() => {
+                setSelectedImage(activity);
+                trackEvent('gallery_open', { title: activity.title, category: activity.category });
+              }}
+            >
               <div className="relative aspect-[4/5] w-full rounded-square-image overflow-hidden mb-6 shadow-lg group-hover:shadow-2xl transition-all duration-500">
                 <Image
                   src={activity.image}

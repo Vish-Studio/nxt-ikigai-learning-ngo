@@ -10,7 +10,7 @@ export default function NotFound() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-ikigai-bg flex flex-col font-sans text-ikigai-dark">
+    <div data-page="not-found" className="min-h-screen bg-ikigai-bg flex flex-col font-sans text-ikigai-dark">
       <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
       {mobileMenuOpen && <MobileNav onClose={() => setMobileMenuOpen(false)} />}
 
