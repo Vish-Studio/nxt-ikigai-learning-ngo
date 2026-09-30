@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
 import { Button } from '@/components/Button';
 import { navItems } from '@/lib/data';
 import siteData from '../../data/site-data.json';
 import SocialLinks from '@/components/SocialLinks/SocialLinks';
 import Logo from '../logo/logo';
+import { openConsentBanner } from '@/lib/consent';
 
 export function Footer() {
   return (
@@ -19,9 +20,9 @@ export function Footer() {
               </div>
             </div>
 
-
             <p className="text-ikigai-bg/60 font-light leading-relaxed max-w-xs">
-              Nurturing potential and providing free education to those who need it most. Every child deserves a reason for being.
+              Nurturing potential and providing free education to those who need it most. Every child deserves a reason
+              for being.
             </p>
             <div className="flex gap-5">
               <SocialLinks variant={1} size={18} />
@@ -34,7 +35,12 @@ export function Footer() {
             <ul className="space-y-4">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <a href={item.href} className="text-ikigai-bg/70 hover:text-white transition-colors font-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ikigai-accent">{item.name}</a>
+                  <a
+                    href={item.href}
+                    className="text-ikigai-bg/70 hover:text-white transition-colors font-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ikigai-accent"
+                  >
+                    {item.name}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -45,15 +51,27 @@ export function Footer() {
             <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-ikigai-accent mb-8">Contact</h4>
             <ul className="space-y-4 text-ikigai-bg/70 font-light">
               <li>
-                <a href={`mailto:${(siteData as any).email}`} className="flex items-center gap-3 hover:text-white transition-colors" aria-label="Email hello at ikigai ngo">
-                  <span className="material-symbols-outlined text-ikigai-accent text-[20px] flex-shrink-0" aria-hidden>mail</span>
+                <a
+                  href={`mailto:${(siteData as any).email}`}
+                  className="flex items-center gap-3 hover:text-white transition-colors"
+                  aria-label="Email hello at ikigai ngo"
+                >
+                  <span className="material-symbols-outlined text-ikigai-accent text-[20px] flex-shrink-0" aria-hidden>
+                    mail
+                  </span>
                   <span>{(siteData as any).email}</span>
                 </a>
               </li>
 
               <li>
-                <a href={(siteData as any).phone.href} className="flex items-center gap-3 hover:text-white transition-colors" aria-label="Call Ikigai">
-                  <span className="material-symbols-outlined text-ikigai-accent text-[20px] flex-shrink-0" aria-hidden>call</span>
+                <a
+                  href={(siteData as any).phone.href}
+                  className="flex items-center gap-3 hover:text-white transition-colors"
+                  aria-label="Call Ikigai"
+                >
+                  <span className="material-symbols-outlined text-ikigai-accent text-[20px] flex-shrink-0" aria-hidden>
+                    call
+                  </span>
                   <span>{(siteData as any).phone.display}</span>
                 </a>
               </li>
@@ -66,7 +84,9 @@ export function Footer() {
                   className="flex items-center gap-3 hover:text-white transition-colors"
                   aria-label="Open address in maps"
                 >
-                  <span className="material-symbols-outlined text-ikigai-accent text-[20px] flex-shrink-0" aria-hidden>place</span>
+                  <span className="material-symbols-outlined text-ikigai-accent text-[20px] flex-shrink-0" aria-hidden>
+                    place
+                  </span>
                   <span>{(siteData as any).address}</span>
                 </a>
               </li>
@@ -93,12 +113,37 @@ export function Footer() {
               href={(siteData as any).copyright.href}
               target="_blank"
               rel="noopener noreferrer"
-            > {(siteData as any).copyright.name}</a>
+            >
+              {' '}
+              {(siteData as any).copyright.name}
+            </a>
           </p>
           <div className="flex gap-8 text-[10px] uppercase tracking-[0.2em] text-ikigai-bg/40">
-            <a href="#" className="hover:text-ikigai-accent transition-colors focus-visible:text-ikigai-accent focus-visible:outline-none">Privacy Policy</a>
-            <a href="#" className="hover:text-ikigai-accent transition-colors focus-visible:text-ikigai-accent focus-visible:outline-none">Terms of Service</a>
-            <a href="#" className="hover:text-ikigai-accent transition-colors focus-visible:text-ikigai-accent focus-visible:outline-none">Cookie Policy</a>
+            <a
+              href="#"
+              className="hover:text-ikigai-accent transition-colors focus-visible:text-ikigai-accent focus-visible:outline-none"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="#"
+              className="hover:text-ikigai-accent transition-colors focus-visible:text-ikigai-accent focus-visible:outline-none"
+            >
+              Terms of Service
+            </a>
+            <a
+              href="#"
+              className="hover:text-ikigai-accent transition-colors focus-visible:text-ikigai-accent focus-visible:outline-none"
+            >
+              Cookie Policy
+            </a>
+            <button
+              type="button"
+              onClick={openConsentBanner}
+              className="uppercase tracking-[0.2em] hover:text-ikigai-accent transition-colors focus-visible:text-ikigai-accent focus-visible:outline-none"
+            >
+              Cookie Settings
+            </button>
           </div>
         </div>
       </div>
