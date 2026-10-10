@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { Poppins, Cormorant_Garamond } from 'next/font/google';
+import { Analytics } from '@/components/Analytics/Analytics';
+import { CookieConsent } from '@/components/CookieConsent/CookieConsent';
+
 import './globals.css';
 
 const poppins = Poppins({
@@ -32,6 +35,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="font-sans bg-ikigai-bg text-ikigai-dark antialiased overflow-x-clip selection:bg-ikigai-accent/20 selection:text-ikigai-dark">
         {children}
+        <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );

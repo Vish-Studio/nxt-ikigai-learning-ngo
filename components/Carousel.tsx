@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
+import { trackEvent } from '@/lib/analytics';
 
 interface CarouselProps<T> {
   items: T[];
@@ -14,7 +15,7 @@ export function Carousel<T>({
   items,
   renderItem,
   autoScroll = true,
-  itemsPerPage = { mobile: 1, tablet: 3, desktop: 4 }
+  itemsPerPage = { mobile: 1, tablet: 3, desktop: 4 },
 }: CarouselProps<T>) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -81,6 +82,10 @@ export function Carousel<T>({
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
+      trackEvent('carousel_scroll', {
+        section_id: scrollRef.current.closest('section')?.id ?? 'unknown',
+        direction,
+      });
       const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
       const maxScroll = scrollWidth - clientWidth;
 
@@ -103,51 +108,52 @@ export function Carousel<T>({
   const getWidthClass = () => {
     const { mobile, tablet, desktop } = itemsPerPage;
 
-    let classes = "flex-shrink-0 snap-start h-full ";
+    let classes = 'flex-shrink-0 snap-start h-full ';
 
     // Mobile (gap-6 -> 1.5rem)
-    if (mobile === 1) classes += "w-full ";
-    else if (mobile === 2) classes += "w-[calc(50%-0.75rem)] ";
-    else if (mobile === 3) classes += "w-[calc(33.333%-1rem)] ";
+    if (mobile === 1) classes += 'w-full ';
+    else if (mobile === 2) classes += 'w-[calc(50%-0.75rem)] ';
+    else if (mobile === 3) classes += 'w-[calc(33.333%-1rem)] ';
 
     // Tablet (md:gap-8 -> 2rem)
-    if (tablet === 1) classes += "md:w-full ";
-    else if (tablet === 2) classes += "md:w-[calc(50%-1rem)] ";
-    else if (tablet === 3) classes += "md:w-[calc(33.333%-1.333rem)] ";
-    else if (tablet === 4) classes += "md:w-[calc(25%-1.5rem)] ";
+    if (tablet === 1) classes += 'md:w-full ';
+    else if (tablet === 2) classes += 'md:w-[calc(50%-1rem)] ';
+    else if (tablet === 3) classes += 'md:w-[calc(33.333%-1.333rem)] ';
+    else if (tablet === 4) classes += 'md:w-[calc(25%-1.5rem)] ';
 
     // Desktop (lg:gap-8 -> 2rem)
-    if (desktop === 1) classes += "lg:w-full ";
-    else if (desktop === 2) classes += "lg:w-[calc(50%-1rem)] ";
-    else if (desktop === 3) classes += "lg:w-[calc(33.333%-1.333rem)] ";
-    else if (desktop === 4) classes += "lg:w-[calc(25%-1.5rem)] ";
-    else if (desktop === 5) classes += "lg:w-[calc(20%-1.6rem)] ";
+    if (desktop === 1) classes += 'lg:w-full ';
+    else if (desktop === 2) classes += 'lg:w-[calc(50%-1rem)] ';
+    else if (desktop === 3) classes += 'lg:w-[calc(33.333%-1.333rem)] ';
+    else if (desktop === 4) classes += 'lg:w-[calc(25%-1.5rem)] ';
+    else if (desktop === 5) classes += 'lg:w-[calc(20%-1.6rem)] ';
 
     return classes.trim();
   };
 
   return (
-    <div className="relative group/carousel" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+    <div
+      className="relative group/carousel"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div
         ref={scrollRef}
         className="flex overflow-x-auto pb-8 md:pb-24 hide-scrollbar snap-x snap-mandatory gap-6 md:gap-8"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {items.map((item, index) => (
-          <div
-            key={index}
-            className={getWidthClass()}
-          >
+          <div key={index} className={getWidthClass()}>
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true, margin: '-50px' }}
               transition={{
                 duration: 1,
                 delay: (index % visibleItems) * 0.1,
-                ease: [0.22, 1, 0.36, 1]
+                ease: [0.22, 1, 0.36, 1],
               }}
-              whileHover={{ cursor: "pointer", transition: { duration: 0.4, ease: "easeOut" } }}
+              whileHover={{ cursor: 'pointer', transition: { duration: 0.4, ease: 'easeOut' } }}
               className="h-full"
             >
               {renderItem(item, index)}
@@ -186,7 +192,7 @@ export function Carousel<T>({
                 className="absolute inset-0 bg-ikigai-accent origin-left"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: (currentSlide + 1) / totalSlides }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
               />
             </div>
             <span className="text-[10px] font-black tracking-[0.3em] text-ikigai-dark uppercase opacity-30 w-6">
